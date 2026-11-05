@@ -1,0 +1,207 @@
+/* Design tokens + pieces shared by the landing page and every feature canvas. */
+
+:root {
+  color-scheme: light dark;
+
+  --bg: light-dark(#f4f2ec, #15171c);
+  --surface: light-dark(#fff, #1b1e25);
+  --surface-2: light-dark(#ecece3, #20232b);
+  --ink: light-dark(#1d2027, #ece9e2);
+  --ink-soft: light-dark(#5b606b, #a7abb6);
+  --ink-faint: light-dark(#8c8f98, #787d89);
+  --line: light-dark(#e2ded2, #2d313b);
+  --line-strong: light-dark(#cfc9b9, #3c4150);
+  --accent: light-dark(#2f4bd9, #8398ff);
+  --accent-ink: light-dark(#1c2e8f, #c4cdff);
+  --accent-soft: light-dark(#e7ebfc, #252c4c);
+  --canvas-frame: light-dark(#d8d4c6, #0c0d10);
+
+  /* Panel tones (feature.json → panels[].tone) */
+  --critical: light-dark(#c2412d, #f07b66);
+  --critical-soft: light-dark(#fbe7e2, #3a211d);
+  --critical-ink: light-dark(#8f2a1a, #f7b3a6);
+  --warning: light-dark(#b7791f, #e0a94a);
+  --warning-soft: light-dark(#fbf0d9, #35291a);
+  --warning-ink: light-dark(#7a4f0e, #f0cd8e);
+  --info: light-dark(#2f6fbf, #6fa8f0);
+  --info-soft: light-dark(#e3eefb, #1c2a3d);
+  --info-ink: light-dark(#1d4a85, #b5d3fa);
+  --success: light-dark(#2e8540, #6cc581);
+  --success-soft: light-dark(#e2f3e5, #1b2f21);
+  --success-ink: light-dark(#1d5a2a, #b3e4bf);
+
+  --font-ui: Archivo, 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+}
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font: 14px var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------------------------------------------------------------- toolbar */
+
+.toolbar {
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  padding: calc(10px + env(safe-area-inset-top, 0px)) calc(16px + env(safe-area-inset-right, 0px)) 10px
+    calc(16px + env(safe-area-inset-left, 0px));
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-right: 6px;
+  min-width: 0;
+}
+.brand .name {
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.brand .hint {
+  color: var(--ink-faint);
+  font-size: 11px;
+  font-weight: 500;
+}
+.sep {
+  align-self: stretch;
+  width: 1px;
+  margin: 2px 0;
+  background: var(--line);
+}
+.spacer {
+  flex: 1;
+}
+
+/* ---------------------------------------------------------------- buttons */
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.1s,
+    color 0.1s;
+}
+button:hover {
+  background: var(--surface);
+}
+button:active {
+  background: var(--line);
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.iconbtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  background: var(--surface-2);
+  color: var(--ink-soft);
+}
+.iconbtn:hover {
+  color: var(--ink);
+}
+.iconbtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---------------------------------------------------------------- tones, dots, badges */
+
+.tone-critical {
+  --tone: var(--critical);
+  --tone-soft: var(--critical-soft);
+  --tone-ink: var(--critical-ink);
+}
+.tone-warning {
+  --tone: var(--warning);
+  --tone-soft: var(--warning-soft);
+  --tone-ink: var(--warning-ink);
+}
+.tone-info {
+  --tone: var(--info);
+  --tone-soft: var(--info-soft);
+  --tone-ink: var(--info-ink);
+}
+.tone-success {
+  --tone: var(--success);
+  --tone-soft: var(--success-soft);
+  --tone-ink: var(--success-ink);
+}
+.tone-neutral {
+  --tone: var(--ink-faint);
+  --tone-soft: var(--surface-2);
+  --tone-ink: var(--ink-soft);
+}
+
+.dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--tone);
+}
+.badge {
+  min-width: 22px;
+  padding: 1px 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font: 600 11px var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.empty {
+  margin: 0;
+  padding: 20px;
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}

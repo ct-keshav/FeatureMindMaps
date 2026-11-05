@@ -1,0 +1,19 @@
+{
+  "title": "__TITLE__",
+  "subtitle": "Architecture whiteboard",
+  "description": "One or two lines about this feature, shown on the landing page card.",
+  "panels": [
+    {
+      "id": "blockers_on_engage",
+      "label": "Engage open blockers",
+      "tone": "critical",
+      "empty": "No open Engage blockers."
+    },
+    {
+      "id": "blockers_on_product",
+      "label": "Product open blockers",
+      "tone": "warning",
+      "empty": "No open product blockers."
+    }
+  ]
+}

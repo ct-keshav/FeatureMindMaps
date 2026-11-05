@@ -1,0 +1,343 @@
+/* Feature canvas page: toolbar controls, pan/zoom viewport, tracker drawer. */
+
+body {
+  overflow: hidden;
+}
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.homelink {
+  text-decoration: none;
+}
+
+/* ---------------------------------------------------------------- toolbar controls */
+
+.zoomgroup {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  background: var(--surface-2);
+}
+.zoomgroup button {
+  width: 30px;
+  height: 28px;
+  padding: 0;
+  font-size: 16px;
+}
+.zoom-readout {
+  min-width: 52px;
+  color: var(--ink-soft);
+  font: 600 12.5px var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+.pillbtn {
+  padding: 7px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  background: var(--surface-2);
+  font-size: 12.5px;
+}
+.pillbtn.primary {
+  border-color: transparent;
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+.kbd-hint {
+  color: var(--ink-faint);
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+.kbd-hint kbd {
+  padding: 1px 5px;
+  border: 1px solid var(--line-strong);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  font: 10.5px var(--font-mono);
+}
+@media (width <= 1600px) {
+  .kbd-hint {
+    display: none;
+  }
+}
+.origlink {
+  padding: 7px 10px;
+  border-radius: 9px;
+  color: var(--ink-soft);
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.origlink:hover {
+  background: var(--surface-2);
+  color: var(--ink);
+}
+
+.panelgroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.panelbtn {
+  gap: 8px;
+  padding: 5px 7px 5px 11px;
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  background: var(--surface-2);
+  font-size: 12.5px;
+}
+.panelbtn[aria-expanded='true'] {
+  border-color: var(--tone);
+  background: var(--tone-soft);
+  color: var(--tone-ink);
+}
+
+/* ---------------------------------------------------------------- canvas */
+
+.stage {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+.viewport {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--canvas-frame);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+.viewport:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.viewport.dragging {
+  cursor: grabbing;
+}
+.viewport canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 16px;
+  background: var(--canvas-frame);
+  color: var(--ink-soft);
+  font-size: 13px;
+  text-align: center;
+}
+.overlay a {
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+.overlay code {
+  font-size: 12px;
+}
+.spin {
+  width: 22px;
+  height: 22px;
+  border: 2.5px solid var(--line-strong);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spin {
+    animation-duration: 3s;
+  }
+}
+
+/* ---------------------------------------------------------------- tracker drawer */
+
+.drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  width: min(520px, 100%);
+  border-left: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: -18px 0 40px -24px #00000059;
+  transform: translateX(100%);
+  visibility: hidden;
+  transition:
+    transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
+    visibility 0s linear 0.22s;
+}
+.drawer[data-open='true'] {
+  transform: none;
+  visibility: visible;
+  transition:
+    transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
+    visibility 0s;
+}
+.drawer:focus {
+  outline: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .drawer,
+  .drawer[data-open='true'] {
+    transition: none;
+  }
+}
+.drawer-head {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 12px 12px 20px;
+  border-bottom: 1px solid var(--line);
+}
+.drawer-head h2 {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.close {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  color: var(--ink-soft);
+  font-size: 20px;
+}
+.close:hover {
+  background: var(--surface-2);
+  color: var(--ink);
+}
+.drawer-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+}
+.item h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+.item p {
+  max-width: 65ch;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-faint);
+  font-size: 11.5px;
+}
+.chip {
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: var(--tone-soft);
+  color: var(--tone-ink);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.chip.closed {
+  background: var(--surface-2);
+  color: var(--ink-faint);
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.field-label,
+.field > summary {
+  color: var(--ink-faint);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.field p {
+  margin: 0;
+}
+.field > summary {
+  width: fit-content;
+  padding: 2px 0;
+  cursor: pointer;
+}
+.field > summary:hover {
+  color: var(--ink-soft);
+}
+.field > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+.field[open] {
+  gap: 8px;
+}
+.field[open] > summary {
+  margin-bottom: 6px;
+}
+.item p.field-prose {
+  font-size: 12.5px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+.field-table {
+  margin: 0;
+  padding: 10px 12px;
+  overflow-x: auto;
+  border-radius: 6px;
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  font: 11px/1.35 var(--font-mono);
+  white-space: pre;
+}

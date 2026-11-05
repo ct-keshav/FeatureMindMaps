@@ -1,0 +1,30 @@
+{
+  "blockers_on_engage": [
+    {
+      "title": "Example blocker: replace me",
+      "status": "Open",
+      "owner": "Team / person",
+      "discussedSolution": "What was agreed, with whom, and when it's planned."
+    },
+    {
+      "title": "Example of a resolved item (greyed out, not counted)",
+      "status": "Resolved",
+      "discussedSolution": "Shipped in release X."
+    }
+  ],
+  "blockers_on_product": [
+    {
+      "title": "Example product question",
+      "status": "Open",
+      "issue": "What is undecided and why it blocks us.",
+      "context": [
+        "Long context can be an array of lines; it collapses behind a toggle.",
+        "",
+        "Lines using box-drawing characters render as a monospace table:",
+        "┌──────────┬──────────┐",
+        "│ Option A │ Option B │",
+        "└──────────┴──────────┘"
+      ]
+    }
+  ]
+}

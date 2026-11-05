@@ -1,0 +1,7 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <rect x="0" y="0" width="1600" height="900" fill="#ffffff"/>
+  <rect x="120" y="120" width="1360" height="660" fill="#f8f7f2" stroke="#cfc9b9" stroke-width="4" stroke-dasharray="18 12"/>
+  <text x="800" y="410" font-family="Archivo, Segoe UI, sans-serif" font-size="56" font-weight="700" fill="#1d2027" text-anchor="middle">Replace this diagram.svg</text>
+  <text x="800" y="480" font-family="Archivo, Segoe UI, sans-serif" font-size="28" fill="#5b606b" text-anchor="middle">Export your board from Excalidraw (Export image → SVG, "Embed scene" off)</text>
+  <text x="800" y="525" font-family="Archivo, Segoe UI, sans-serif" font-size="28" fill="#5b606b" text-anchor="middle">and save it as features/__SLUG__/diagram.svg</text>
+</svg>
